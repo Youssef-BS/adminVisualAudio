@@ -1,5 +1,6 @@
 import React from 'react';
 import './sideBar.css'; 
+import { Link } from 'react-router-dom';
 
 function Sidebar() {
   return (
@@ -27,7 +28,7 @@ function Sidebar() {
         </li>
         <li>
           <span className="material-icons">group</span>
-          <a href="#">Users</a>
+          <Link href="/users">Users</Link>
         </li>
         <li>
           <span className="material-icons">screen_search_desktop</span>
