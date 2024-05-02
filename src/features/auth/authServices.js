@@ -14,11 +14,9 @@ const login = async (user) => {
   }
 };
 
-const logout = () => {
-  Cookies.remove("user");
-};
 
-const getCurrentUser = () => {
+
+ const getCurrentUser = () => { 
     const userData = Cookies.get("user");
     try {
       return userData ? JSON.parse(userData) : null;
@@ -26,12 +24,18 @@ const getCurrentUser = () => {
       console.error("Error parsing user data from cookies:", error);
       return null;
     }
+};
+
+ const logout = () => (dispatch) => {
+    Cookies.remove("user");
+    dispatch({ type: 'logout/logout' });
   };
+  
 
 const authService = {
   login,
-  logout,
   getCurrentUser,
+  logout
 };
 
 export default authService;

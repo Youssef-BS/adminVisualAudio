@@ -1,15 +1,24 @@
 import React, { useState } from 'react';
 import './auth.css'; 
 import { login } from '../../features/auth/authSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectCurrentUser } from '../../features/auth/authSlice';
 
 function Login() {
   const [email, setEmail] = useState(""); 
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
+  const currentUser = useSelector(selectCurrentUser);
 
-  const handleLogin = () => {
-    dispatch(login({ email, password }));
+  const handleLogin = async () => {
+    try {
+      await dispatch(login({ email, password }));
+      if (currentUser) {
+        window.location.href = "/";
+      }
+    } catch (error) {
+      console.error('Login failed:', error.message);
+    }
   }
 
   return (

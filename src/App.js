@@ -1,37 +1,39 @@
-import SideBar from "./components/sideBar/SideBar"
-import Login from "./pages/auth/auth";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { selectCurrentUser } from './features/auth/authSlice';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Home from "./pages/home/Home";
-import Users from "./pages/users/Users";
-
+import SideBar from './components/sideBar/SideBar';
+import Login from './pages/auth/auth';
+import Home from './pages/home/Home';
 
 const Layout = ({ children }) => {
   return (
-      <>
-          <SideBar />
-          {children}
-      </>
+    <>
+      <SideBar />
+      {children}
+    </>
   );
 };
 
-
 function App() {
+  const currentUser = useSelector(selectCurrentUser);
+  console.log(currentUser)
   return (
     <Router>
-    <Routes>
+      <Routes>
         <Route
-            path="/"
-            element={<Login />}
+          path="/"
+          element={
+            currentUser === null ? (
+              <Login />
+            ) : (
+              <Layout>
+                <Home />
+              </Layout>
+            )
+          }
         />
-        <Route
-            path="/home"
-            element={<Layout><Home /></Layout>}
-        />
-        <Route
-            path="/users"
-            element={<Layout><Users /></Layout>}
-        />
-        </Routes>
+      </Routes>
     </Router>
   );
 }

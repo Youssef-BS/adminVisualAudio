@@ -1,8 +1,17 @@
 import React from 'react';
 import './sideBar.css'; 
 import { Link } from 'react-router-dom';
-
+import { useDispatch } from 'react-redux';
+import {logoutSuccess} from "../../features/auth/authSlice"
+import { useNavigate } from 'react-router-dom';
 function Sidebar() {
+  const navigate = useNavigate() ;
+  const dispatch = useDispatch() ;
+
+  const handleLogout = ()=> {
+    navigate("/") ;
+    dispatch(logoutSuccess()) ;
+  }
   return (
     <aside className="sidebar">
       <div className="logo">
@@ -49,7 +58,7 @@ function Sidebar() {
         </li>
         <li className="logout-link">
           <span className="material-icons">logout</span>
-          <a href="#">Logout</a>
+          <button onClick={handleLogout}>Logout</button>
         </li>
       </ul>
     </aside>
