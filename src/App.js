@@ -17,7 +17,7 @@ const Layout = ({ children }) => {
 
 function App() {
   const currentUser = useSelector(selectCurrentUser);
-  console.log(currentUser)
+  console.log(currentUser) ;
   return (
     <Router>
       <Routes>
