@@ -4,21 +4,33 @@ import { login } from '../../features/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCurrentUser } from '../../features/auth/authSlice';
 
+
+
 function Login() {
+
+
   const [email, setEmail] = useState(""); 
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
 
   const handleLogin = async () => {
-    try {
-      await dispatch(login({ email, password }));
+    if (!email ||!password) {
+      console.log("Please enter")
+    }
+    else {
+    try { 
+         await dispatch(login({ email, password }));
       if (currentUser) {
         window.location.href = "/";
+      } 
+      else {
+    
       }
     } catch (error) {
       console.error('Login failed:', error.message);
     }
+  }
   }
 
   return (
