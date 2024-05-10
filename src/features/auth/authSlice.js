@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authService  from "./authServices";
+import Cookies from "js-cookie";
 
 const initialState = {
   user: authService.getCurrentUser(), 
@@ -21,15 +22,7 @@ export const login = createAsyncThunk(
   }
 );
 
-export const logout = createSlice({
-  name: 'logout',
-  initialState,
-  reducers: {
-    logoutSuccess: (state) => {
-      state.user = null;
-    },
-  },
-});
+
 
 export const authSlice = createSlice({
   name: "auth",
@@ -53,8 +46,21 @@ export const authSlice = createSlice({
   },
 });
 
+export const logout = createAsyncThunk("/logout", async (_, thunkAPI) => {
+  try {
+    
+    Cookies.remove('user') ; 
+    return null;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+});
+
+
+
+
 export const selectCurrentUser = (state) => state.auth.user; 
 
-export const { logoutSuccess } = logout.actions;
+
 
 export default authSlice.reducer; 

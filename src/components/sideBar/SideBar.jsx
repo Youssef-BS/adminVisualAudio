@@ -2,15 +2,14 @@ import React from 'react';
 import './sideBar.css'; 
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import {logoutSuccess} from "../../features/auth/authSlice"
-import { useNavigate } from 'react-router-dom';
+import {logout} from "../../features/auth/authSlice"
+
 function Sidebar() {
-  const navigate = useNavigate() ;
   const dispatch = useDispatch() ;
 
   const handleLogout = ()=> {
-    navigate("/") ;
-    dispatch(logoutSuccess()) ;
+    window.location.href = "/login";
+    dispatch(logout()) ;
   }
   return (
     <aside className="sidebar">

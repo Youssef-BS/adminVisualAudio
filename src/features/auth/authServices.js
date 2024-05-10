@@ -6,15 +6,13 @@ const login = async (user) => {
   try {
     const response = await axios.post(`${base_url}/login`, user);
     if (response.data) {
-      Cookies.set("user", JSON.stringify(response.data), { expires: 7 });
+      Cookies.set("user", JSON.stringify(response.data), { expires : 7 });
     }
     return response.data;
   } catch (error) {
     throw new Error(error.response?.data?.message || "Login failed");
   }
 };
-
-
 
  const getCurrentUser = () => { 
     const userData = Cookies.get("user");
@@ -26,16 +24,11 @@ const login = async (user) => {
     }
 };
 
- const logout = () => (dispatch) => {
-    Cookies.remove("user");
-    dispatch({ type: 'logout/logout' });
-  };
-  
 
 const authService = {
   login,
   getCurrentUser,
-  logout
+ 
 };
 
 export default authService;

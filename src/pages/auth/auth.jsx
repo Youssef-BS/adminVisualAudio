@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import './auth.css'; 
-import { login } from '../../features/auth/authSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectCurrentUser } from '../../features/auth/authSlice';
+import { login  } from '../../features/auth/authSlice';
+import { useDispatch } from 'react-redux';
+import ToastMessage from '../../components/toastMessage/ToastMessage';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -12,21 +13,17 @@ function Login() {
   const [email, setEmail] = useState(""); 
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-  const currentUser = useSelector(selectCurrentUser);
+  const navigate = useNavigate() ; 
+
+
 
   const handleLogin = async () => {
-    if (!email ||!password) {
-      console.log("Please enter")
-    }
+    if (!email ||!password) 
+      <ToastMessage message="Please set your email and your password" typeToast="warning" />
     else {
     try { 
-         await dispatch(login({ email, password }));
-      if (currentUser) {
-        window.location.href = "/";
-      } 
-      else {
-    
-      }
+      await dispatch(login({ email, password }));
+      await navigate('/');   
     } catch (error) {
       console.error('Login failed:', error.message);
     }

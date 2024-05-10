@@ -12,6 +12,7 @@ function App() {
 const currentUser = useSelector(selectCurrentUser);
 
 const Layout = ({ children }) => {
+  
   return (
     <>
       <SideBar />
@@ -32,7 +33,7 @@ const ProtectRoute = ({children}) => {
     <Router>
     <Routes>
       <Route exact path="/login" element={<Login />} />
-      <Route path="/" element={<ProtectRoute><Home /></ProtectRoute>} />
+      <Route path="/" element={<ProtectRoute><Layout><Home /></Layout></ProtectRoute>} />
     </Routes>
   </Router>
   );
