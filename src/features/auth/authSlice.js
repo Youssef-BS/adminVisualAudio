@@ -48,7 +48,6 @@ export const authSlice = createSlice({
 
 export const logout = createAsyncThunk("/logout", async (_, thunkAPI) => {
   try {
-    
     Cookies.remove('user') ; 
     return null;
   } catch (error) {
