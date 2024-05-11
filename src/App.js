@@ -5,6 +5,8 @@ import { BrowserRouter as Router, Route, Routes , Navigate} from 'react-router-d
 import SideBar from './components/sideBar/SideBar';
 import Login from './pages/auth/auth';
 import Home from './pages/home/Home';
+import Users from './pages/users/Users';
+import UserDetails from './pages/userDetails/userDetails';
 
 
 function App() {
@@ -22,11 +24,8 @@ const Layout = ({ children }) => {
 };
 
 const ProtectRoute = ({children}) => {
-
   if(!currentUser) return <Navigate to="/login" />
-
   return children ;
-
 }
 
   return (
@@ -34,6 +33,8 @@ const ProtectRoute = ({children}) => {
     <Routes>
       <Route exact path="/login" element={<Login />} />
       <Route path="/" element={<ProtectRoute><Layout><Home /></Layout></ProtectRoute>} />
+      <Route path="/users" element={<ProtectRoute><Layout><Users /></Layout></ProtectRoute>} />
+      <Route path="/userDetails/:id" element={<ProtectRoute><Layout><UserDetails /></Layout></ProtectRoute>} />
     </Routes>
   </Router>
   );

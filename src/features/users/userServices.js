@@ -20,6 +20,15 @@ const getUsers = async () => {
     }
 }
 
+const getUser = async (id)=> {
+    try {
+        const response = await axios.get(`${base_url_users}/${id}`);
+        return response.data;
+    }catch(err){
+        throw new Error(err.message);
+    }
+}
+
 const updateUser = async (user) => {
     try{
         const response = await axios.put(`${base_url_users}/${user.id}` , user) ; 
@@ -42,7 +51,8 @@ const userService = {
     addUser ,
     getUsers,
     updateUser,
-    deleteUser
+    deleteUser,
+    getUser
 }
 
 export default userService;

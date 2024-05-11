@@ -7,6 +7,7 @@ const initialState = {
   isSuccess: false,
   message: "",
   users: [],
+  userSelect : []
 };
 
 export const addUser = createAsyncThunk(
@@ -38,6 +39,18 @@ export const updateUser = createAsyncThunk(
   async (userData, thunkApi) => {
     try {
       const response = await userService.updateUser(userData);
+      return response;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
+);
+
+export const getUser = createAsyncThunk(
+  "users/getUser",
+  async (id, thunkApi) => {
+    try {
+      const response = await userService.getUser(id);
       return response;
     } catch (error) {
       throw new Error(error.message);
@@ -85,6 +98,19 @@ export const userSlice = createSlice({
         state.users = action.payload;
       })
       .addCase(getUsers.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.error.message;
+      })
+      .addCase(getUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.userSelect = action.payload;
+      })
+      .addCase(getUser.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.error.message;

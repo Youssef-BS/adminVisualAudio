@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './auth.css'; 
-import { login  } from '../../features/auth/authSlice';
+import { login } from '../../features/auth/authSlice';
 import { useDispatch } from 'react-redux';
 import ToastMessage from '../../components/toastMessage/ToastMessage';
 import { useNavigate } from 'react-router-dom';
